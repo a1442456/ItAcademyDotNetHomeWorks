@@ -18,8 +18,10 @@ namespace Task2
             int result = int.Parse(Console.ReadLine());
             if (result == AdditionTwoNumbers(num1, num2))
                 Console.WriteLine("Done! You're goddamn right. Totally sure you can type binary code instead of c#. Think about it! :)");
+            else if(result > AdditionTwoNumbers(num1, num2))
+                Console.WriteLine("Less than you think! :(");
             else
-                Console.WriteLine("Better luck next time :(");
+                Console.WriteLine("More than you think! :(");
             Console.ReadLine();
         }
         /// <summary>
