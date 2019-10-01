@@ -9,60 +9,49 @@ namespace Task2
     class Program
     {
         static void Main(string[] args)
-        {
-            sbyte sharpSbyte = 1;
-            SByte clrSbyte = 1;            
+        {   
+            int num1 = InputNumber();
+            int num2 = InputNumber();
+            Console.WriteLine("Enter a math sign");
+            char sign = Console.ReadLine()[0]; //Read 1st symbol of an entered string
 
-            short sharpShort = 1;
-            System.Int16 clrShort = 1;
-
-            int sharpInt = 1;
-            Int32 clrInt = 1;
-
-            long sharpLong = 1;
-            Int64 clrLong = 1;
-
-            byte sharpByte = 1;
-            Byte clrByte = 1;
-
-            ushort sharpUshort = 1;
-            UInt16 clrUshort = 1;
-
-            uint sharpUint = 1;
-            UInt32 clrUint = 1;
-
-            ulong sharpUlong = 1;
-            UInt64 clrUlong = 1;
-
-            char sharpChar = 'a';
-            Char clrChar = 'a';
-
-            float sharpFloat = 1.7f;
-            Single clrFloat = 1.7f;
-
-            double sharpDouble = 1.7;
-            Double clrDouble = 1.7;
-
-            decimal sharpDecimal = decimal.MaxValue;
-            Decimal clrDecimal = Decimal.MaxValue;
-
-            bool sharpBool = false;
-            Boolean clrBool = false;
-
-            string sharpString = "abc";
-            String clrString = "abc";
-
-            object sharpObject = 123;
-            Object clrObject = 123;
-
-            object[] objArray = { sharpBool, sharpByte, sharpChar, sharpDecimal, sharpDouble, sharpFloat, sharpInt, sharpLong,
-                sharpObject, sharpSbyte, sharpShort, sharpString, sharpUint, sharpUlong, sharpUshort,
-                clrBool, clrByte, clrChar, clrDecimal, clrDouble, clrFloat, clrInt, clrLong, clrObject, clrSbyte, clrShort, clrString, clrUint, clrUlong, clrUshort};
-
-            foreach (object item in objArray)
-                Console.WriteLine(item.GetType());
-
+            Console.WriteLine("Try to calculate it yourself!");
+            Console.WriteLine("Your answer is:");
+            int result = int.Parse(Console.ReadLine());          
+            if (result == WorkWithTwoNumbers(num1, num2, sign))
+                Console.WriteLine("Done! You're goddamn right. Totally sure you can type binary code instead of c#. Think about it! :)");
+            else if(result > WorkWithTwoNumbers(num1, num2, sign))
+                Console.WriteLine("Less than you think! :(");
+            else
+                Console.WriteLine("More than you think! :(");
             Console.ReadLine();
+        }
+        /// <summary>
+        /// Return a number entered in Console
+        /// </summary>
+        /// <returns></returns>
+        static int InputNumber()
+        {
+            Console.WriteLine(string.Concat("Enter number:"));
+            int number = int.Parse(Console.ReadLine());
+            return number;
+        }
+
+        /// <summary>
+        /// Returns result of operation between two numbers with a math sign
+        /// </summary>
+        /// <param name="num1">Number #1</param>
+        /// <param name="num2">Number #2</param>
+        /// <param name="sign">Math Sign</param>
+        /// <returns></returns>
+        static int WorkWithTwoNumbers(int num1, int num2, char sign)
+        {
+            if (sign == '-')
+                return num1 - num2;
+            else if (sign == '+')
+                return num1 + num2;
+            else
+                throw new Exception("This sign can't be enterpritate as a math sign :(");
         }
     }
 }
