@@ -13,7 +13,7 @@ namespace Task2
             int num1 = InputNumber();
             int num2 = InputNumber();
             Console.WriteLine("Enter a math sign");
-            char sign = Console.ReadLine()[0]; //Read 1st symbol of an entered string
+            char sign = Console.ReadLine()[0]; //Read 1st char of an entered string
 
             Console.WriteLine("Try to calculate it yourself!");
             Console.WriteLine("Your answer is:");
