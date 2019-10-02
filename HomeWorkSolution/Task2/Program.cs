@@ -18,18 +18,17 @@ namespace Task2
                 Move(ReadAnswerFromUser());
                 Console.WriteLine("One more step? Type 'y' to continue...");
             }
-            while (IsMovingNext(ReadAnswerFromUser()));
-            Console.ReadLine();
+            while (IsMovingNext(ReadAnswerFromUser()));            
         }
 
         
         /// <summary>
         /// Move the character.
         /// </summary>
-        /// <param name="inputedCharacter">Direction char code such as 'W'/'w' 'S'/'s' 'A'/'a' and 'D'/'d'</param>
+        /// <param name="inputedCharacter">Direction char code such as 'W'/'w' 'S'/'s' 'A'/'a' and 'D'/'d'.</param>
         static void Move(char inputedCharacter)
         {
-            inputedCharacter = Char.ToLower(inputedCharacter); //in case of upper case typing
+            inputedCharacter = Char.ToLower(inputedCharacter);
             switch (inputedCharacter)
             {
                 case 'w':
@@ -54,7 +53,7 @@ namespace Task2
         /// Ask user: is moving next?
         /// </summary>
         /// <param name="inputedCharacter"></param>
-        /// <returns></returns>
+        /// <returns>Return boolean result of the response.</returns>
         static bool IsMovingNext(char inputedCharacter)
         {
             if (Char.ToLower(inputedCharacter) == 'y')
@@ -65,6 +64,7 @@ namespace Task2
             else
             {
                 Console.WriteLine("Game is over. Press any key to close");
+                Console.ReadKey();
                 return false;
             }
         }
@@ -72,7 +72,7 @@ namespace Task2
         /// <summary>
         /// Reads user entered char.
         /// </summary>
-        /// <returns>Return char.</returns>
+        /// <returns>Return a char.</returns>
         static char ReadAnswerFromUser()
         {
             Console.Write("Your answer is:");
@@ -85,7 +85,6 @@ namespace Task2
                 Console.WriteLine(ex.Message);
                 return ReadAnswerFromUser();
             }
-
         }
     }
 }

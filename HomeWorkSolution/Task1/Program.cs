@@ -17,15 +17,16 @@ namespace Task1
             PrintCapitalAlphabet();
             PrintLowerAlphabet();
             PrintAllAlphabetCases();
-
             Console.WriteLine("\nEnter pair counts in a line for better view:");
-            byte pairsInLine = byte.Parse(Console.ReadLine());
+            byte pairsInLine = ReadAnswerFromUser();
             PrintAllAlphabetCases(pairsInLine);
-            Console.ReadLine();
+
+            Console.Write("Press any key to close...");
+            Console.ReadKey();
         }
 
         /// <summary>
-        /// Print all capitals in a line
+        /// Print all capitals in a line.
         /// </summary>
         static void PrintCapitalAlphabet()
         {
@@ -35,7 +36,7 @@ namespace Task1
         }
 
         /// <summary>
-        /// Print all lower in a line
+        /// Print all lower in a line.
         /// </summary>
         static void PrintLowerAlphabet()
         {
@@ -45,7 +46,7 @@ namespace Task1
         }
 
         /// <summary>
-        /// Print alphabet pairs in a line
+        /// Print alphabet pairs in a line.
         /// </summary>
         static void PrintAllAlphabetCases()
         {
@@ -57,7 +58,7 @@ namespace Task1
         /// <summary>
         /// Print Alphabet pairs.
         /// </summary>
-        /// <param name="pairsInLine">Couts of pairs in a line</param>
+        /// <param name="pairsInLine">Couts of pairs in a line.</param>
         static void PrintAllAlphabetCases(byte pairsInLine)
         {
             for (int letterNumber = 1; letterNumber <= EngLettersCount; letterNumber++)
@@ -67,6 +68,29 @@ namespace Task1
                     Console.Write('\n'); 
             }
             Console.Write('\n');
+        }
+
+        /// <summary>
+        /// Reads user entered char.
+        /// </summary>
+        /// <returns>Return char.</returns>
+        static byte ReadAnswerFromUser()
+        {
+            Console.Write("Your answer is:");
+            try
+            {
+                return byte.Parse(Console.ReadLine());
+            }
+            catch (FormatException ex)
+            {
+                Console.WriteLine(ex.Message);
+                return ReadAnswerFromUser();
+            }
+            catch (OverflowException ex)
+            {
+                Console.WriteLine(ex.Message);
+                return ReadAnswerFromUser();
+            }
         }
     }
 }
