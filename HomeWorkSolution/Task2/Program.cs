@@ -15,10 +15,10 @@ namespace Task2
             do
             {
                 Console.WriteLine("Your direction is?");
-                Move(ReadAnswer());
+                Move(ReadAnswerFromUser());
                 Console.WriteLine("One more step? Type 'y' to continue...");
             }
-            while (IsMovingNext(ReadAnswer()));
+            while (IsMovingNext(ReadAnswerFromUser()));
             Console.ReadLine();
         }
 
@@ -73,17 +73,17 @@ namespace Task2
         /// Reads user entered char.
         /// </summary>
         /// <returns>Return char.</returns>
-        static char ReadAnswer()
+        static char ReadAnswerFromUser()
         {
             Console.Write("Your answer is:");
             try
             {
-                return Convert.ToChar(Console.ReadLine());
+                return char.Parse(Console.ReadLine());
             }
             catch (FormatException ex)
             {
                 Console.WriteLine(ex.Message);
-                return ReadAnswer();
+                return ReadAnswerFromUser();
             }
 
         }
