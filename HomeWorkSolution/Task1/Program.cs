@@ -4,24 +4,60 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Task1
+namespace ConsoleApplication1
 {
     class Program
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("This is Task1");
-            Console.WriteLine("Enter num1:");
-            int num1 = int.Parse(Console.ReadLine());
-            Console.WriteLine("Enter num2:");
-            int num2 = int.Parse(Console.ReadLine());
-            Console.WriteLine(string.Format("Result is:{0}", AdditionTwoNumbers(num1, num2)));
-            Console.ReadKey();
+            Console.WriteLine("Enter array length");
+            int length;
+            while (!int.TryParse(Console.ReadLine(), out length))
+                Console.WriteLine("Entered wrong value");
+
+            int[] randomArray = new int[length];
+            FillArrayRandomly(ref randomArray);
+            PrintArray(randomArray, "Filled randomly array");
+
+            int[] manualArray = new int[length];
+            FillArrayManualy(ref manualArray);
+            PrintArray(manualArray, "Filled manualy array");
+
+            int[] resultArray = new int[length];
+            for (int index = 0; index < resultArray.Length; index++)
+                resultArray[index] = randomArray[index] + manualArray[index];
+            PrintArray(resultArray, "Result array");
+
+            Console.ReadLine();
         }
 
-        static int AdditionTwoNumbers(int num1, int num2)
-        {  
-            return num1 + num2;
+        static void PrintArray(int[] array, string message)
+        {
+            Console.WriteLine(message);
+            foreach (int item in array)
+                Console.Write(string.Format("{0} ", item));
+            Console.WriteLine("\n");
+        }
+
+        static void FillArrayRandomly(ref int[] array)
+        {
+            int startValue = 0;
+            int endValue = 10;
+            Random rnd = new Random();
+            for (int index = 0; index < array.Length; index++)
+                array[index] = rnd.Next(startValue, endValue);
+        }
+
+        static void FillArrayManualy(ref int[] array)
+        {
+            Console.WriteLine("Enter array manualy");
+            int value;
+            for (int index = 0; index < array.Length; index++)
+            {
+                while (!int.TryParse(Console.ReadLine(), out value))
+                    Console.WriteLine("Entered wrong value");
+                array[index] = value;
+            }
         }
     }
 }
