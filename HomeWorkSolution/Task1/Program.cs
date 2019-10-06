@@ -31,6 +31,11 @@ namespace ConsoleApplication1
             Console.ReadLine();
         }
 
+        /// <summary>
+        /// Printing array in a console.
+        /// </summary>
+        /// <param name="array">Array that must be shown</param>
+        /// <param name="message">Printed message before array printing</param>
         static void PrintArray(int[] array, string message)
         {
             Console.WriteLine(message);
@@ -39,6 +44,10 @@ namespace ConsoleApplication1
             Console.WriteLine("\n");
         }
 
+        /// <summary>
+        /// Fill array randomly.
+        /// </summary>
+        /// <param name="array">Array that must be filled.</param>
         static void FillArrayRandomly(ref int[] array)
         {
             int startValue = 0;
@@ -48,6 +57,10 @@ namespace ConsoleApplication1
                 array[index] = rnd.Next(startValue, endValue);
         }
 
+        /// <summary>
+        /// Fill array manually.
+        /// </summary>
+        /// <param name="array">Array that must be filled.</param>
         static void FillArrayManualy(ref int[] array)
         {
             Console.WriteLine("Enter array manualy");
