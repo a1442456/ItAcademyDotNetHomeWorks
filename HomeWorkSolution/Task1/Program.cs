@@ -8,20 +8,73 @@ namespace Task1
 {
     class Program
     {
+        const char NewLineChar = ';';
+        const char ReplacedChar = 'o';
+        const char ReplacedToChar = 'a';
         static void Main(string[] args)
         {
-            Console.WriteLine("This is Task1");
-            Console.WriteLine("Enter num1:");
-            int num1 = int.Parse(Console.ReadLine());
-            Console.WriteLine("Enter num2:");
-            int num2 = int.Parse(Console.ReadLine());
-            Console.WriteLine(string.Format("Result is:{0}", AdditionTwoNumbers(num1, num2)));
-            Console.ReadKey();
+            string poem = string.Empty;
+            Console.WriteLine("Enter poem");
+            poem = Console.ReadLine();
+
+            string[] poemStrings = ConvertTextToPoem(poem, NewLineChar);
+            ConvertPoem(ref poemStrings, ReplacedChar, ReplacedToChar);
+            PrintPoem(poemStrings);
+
+            Console.ReadLine();
         }
 
-        static int AdditionTwoNumbers(int num1, int num2)
-        {  
-            return num1 + num2;
+        /// <summary>
+        /// Convert text to string array
+        /// </summary>
+        /// <param name="text">Text.</param>
+        /// <param name="newLineChar">New line sign.</param>
+        /// <returns>Resulted array.</returns>
+        static string[] ConvertTextToPoem(string text, char newLineChar)
+        {
+            string[] poem;
+            poem = text.Split(newLineChar);
+            return poem;
+        }
+
+        /// <summary>
+        /// Get count of a char in a string text.
+        /// </summary>
+        /// <param name="text">Text.</param>
+        /// <param name="specChar">Calculated character.</param>
+        /// <returns>Count of a char in a string.</returns>
+        static uint GetCountOfSpecChar(string text, char specChar)
+        {
+            uint count = 0;
+            foreach (char sign in text)
+            {
+                if (sign == specChar)
+                    count++;
+            }
+            return count;
+        }
+
+        /// <summary>
+        /// Print poem.
+        /// </summary>
+        /// <param name="poem">String array that should be displayed.</param>
+        static void PrintPoem(string[] poem)
+        {
+            Console.WriteLine("***Print Poem***");
+            foreach (string poemString in poem)
+                Console.WriteLine(poemString);
+        }
+
+        /// <summary>
+        /// Replace each replace char in each string to a special char.
+        /// </summary>
+        /// <param name="poem">String array that should be modified.</param>
+        /// <param name="replacedChar">Old char.</param>
+        /// <param name="replaceToChar">New char.</param>
+        static void ConvertPoem(ref string[] poem, char replacedChar, char replaceToChar)
+        {
+            for (int index = 0; index < poem.Length; index++)
+                poem[index] = poem[index].Replace(replacedChar, replaceToChar);
         }
     }
 }
