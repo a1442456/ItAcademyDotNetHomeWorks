@@ -4,54 +4,89 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Task2
+namespace ConsoleApplication1
 {
     class Program
     {
         static void Main(string[] args)
-        {   
-            int num1 = InputNumber();
-            int num2 = InputNumber();
-            Console.WriteLine("Enter a math sign");
-            char sign = Console.ReadLine()[0]; //Read 1st char of an entered string
+        {
+            int length;
+            ReadAnswerFromUser("Enter array length", out length);
 
-            Console.WriteLine("Try to calculate it yourself!");
-            Console.WriteLine("Your answer is:");
-            int result = int.Parse(Console.ReadLine());          
-            if (result == WorkWithTwoNumbers(num1, num2, sign))
-                Console.WriteLine("Done! You're goddamn right. Totally sure you can type binary code instead of c#. Think about it! :)");
-            else if(result > WorkWithTwoNumbers(num1, num2, sign))
-                Console.WriteLine("Less than you think! :(");
-            else
-                Console.WriteLine("More than you think! :(");
+            int[] manualArray = new int[length];
+            FillArrayManualyExceptLast(ref manualArray);
+            PrintArray(manualArray, "Filled manualy array");
+
+            int position;
+            ReadAnswerFromUser("Enter position. Positions starts from 0", out position);
+            while (position >= manualArray.Length)
+            {
+                Console.WriteLine("You enter position higher than array length");
+                ReadAnswerFromUser("Enter new position", out position);
+            }
+
+            int value;
+            ReadAnswerFromUser("Enter value", out value);
+
+            RemapArray(ref manualArray, position, value);
+            PrintArray(manualArray, "Remaped array");
+
             Console.ReadLine();
         }
+
         /// <summary>
-        /// Return a number entered in Console
+        /// Printing array in a console.
         /// </summary>
-        /// <returns></returns>
-        static int InputNumber()
+        /// <param name="array">Array that must be shown</param>
+        /// <param name="message">Printed message before array printing</param>
+        static void PrintArray(int[] array, string message)
         {
-            Console.WriteLine(string.Concat("Enter number:"));
-            int number = int.Parse(Console.ReadLine());
-            return number;
+            Console.WriteLine(message);
+            foreach (int item in array)
+                Console.Write(string.Format("{0} ", item));
+            Console.WriteLine("\n");
         }
 
         /// <summary>
-        /// Returns result of operation between two numbers with a math sign
+        /// Filling array except last element.
         /// </summary>
-        /// <param name="num1">Number #1</param>
-        /// <param name="num2">Number #2</param>
-        /// <param name="sign">Math Sign</param>
-        /// <returns></returns>
-        static int WorkWithTwoNumbers(int num1, int num2, char sign)
+        /// <param name="array"></param>
+        static void FillArrayManualyExceptLast(ref int[] array)
         {
-            if (sign == '-')
-                return num1 - num2;
-            else if (sign == '+')
-                return num1 + num2;
-            else
-                throw new Exception("This sign can't be enterpritate as a math sign :(");
+            Console.WriteLine("Enter array manualy");
+            int value;
+            for (int index = 0; index < array.Length - 1; index++)
+            {
+                while (!int.TryParse(Console.ReadLine(), out value))
+                    Console.WriteLine("Entered wrong value");
+                array[index] = value;
+            }
+        }
+
+        /// <summary>
+        /// Reads answer from user without exceptions.
+        /// </summary>
+        /// <param name="message">The message which should be shown before reading answer.</param>
+        /// <param name="value">TryParse value.</param>
+        static void ReadAnswerFromUser(string message, out int value)
+        {
+            Console.WriteLine(message);
+            while (!int.TryParse(Console.ReadLine(), out value))
+                Console.WriteLine("Entered wrong value");
+        }
+
+        /// <summary>
+        /// Remap array.
+        /// </summary>
+        /// <param name="array">Array that should be remaped.</param>
+        /// <param name="position">Position to insert the value</param>
+        /// <param name="value">Value that must be inserted into array at position.</param>
+        static void RemapArray(ref int[] array, int position, int value)
+        {   
+            for (int index = array.Length - 2; index >= position; index--)
+                array[index + 1] = array[index];
+
+            array[position] = value;
         }
     }
 }
