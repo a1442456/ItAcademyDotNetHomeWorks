@@ -4,13 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ConsoleApplication1
+namespace Task1.Airport
 {
-    class Program
+    class Security
     {
-        static void Main(string[] args)
-        {
-           
-        }
     }
 }

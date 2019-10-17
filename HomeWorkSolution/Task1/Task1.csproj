@@ -43,8 +43,19 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Airport\Security.cs" />
+    <Compile Include="Persons\Baggage.cs" />
+    <Compile Include="Persons\Pasport.cs" />
+    <Compile Include="Persons\Person.cs" />
+    <Compile Include="Things\Alcohol.cs" />
+    <Compile Include="Things\Drugs.cs" />
+    <Compile Include="Things\Gun.cs" />
+    <Compile Include="Things\Orange.cs" />
+    <Compile Include="Things\Perfume.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Thing.cs" />
+    <Compile Include="Things\Сlothes.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

@@ -4,13 +4,12 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ConsoleApplication1
+namespace Task1.Things
 {
-    class Program
+    class Сlothes : Thing
     {
-        static void Main(string[] args)
+        public Сlothes() : base(15)
         {
-           
         }
     }
 }
