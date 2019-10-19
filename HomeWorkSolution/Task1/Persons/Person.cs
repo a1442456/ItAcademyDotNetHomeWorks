@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Task1.Airport;
 
 namespace Task1.Persons
 {
@@ -10,14 +11,15 @@ namespace Task1.Persons
     {
         private string _firstName;
         private string _surName;
-        private Pasport _pasport;
+        private Passport _pasport;
         private Baggage _baggage;
+        private Ticket ticket;
 
         public Person(string name, string surname)
         {
             _firstName = name;
             _surName = surname;
-            _pasport = new Pasport(name, surname);
+            _pasport = new Passport(name, surname);
         }
 
         public Baggage PersonBaggage
@@ -35,7 +37,7 @@ namespace Task1.Persons
             set { _baggage = value; }
         }
 
-        public Pasport Pasport
+        public Passport Pasport
         {
             get { return _pasport; }
         }
@@ -50,5 +52,10 @@ namespace Task1.Persons
             get { return _firstName; }
         }
 
+        public Ticket Ticket
+        {
+            get { return ticket; }
+            set { ticket = value; }
+        }
     }
 }

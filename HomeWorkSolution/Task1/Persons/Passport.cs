@@ -6,13 +6,13 @@ using System.Threading.Tasks;
 
 namespace Task1.Persons
 {
-    class Pasport
+    class Passport
     {
         private Guid _identityNum;
         private string _firstName;
         private string _surname;
 
-        public Pasport(string name, string surname)
+        public Passport(string name, string surname)
         {
             _firstName = name;
             _surname = surname;
@@ -28,6 +28,7 @@ namespace Task1.Persons
         {
             get { return _firstName; }
         }
+
         public string Surname
         {
             get { return _surname; }
