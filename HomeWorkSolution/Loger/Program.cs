@@ -11,9 +11,9 @@ namespace Loger
         static void Main(string[] args)
         {
             Loger qwe = new Loger();
-            for (int i = 0; i < 10000; i++)
+            for (int i = 0; i < 25000; i++)
             {
-                qwe.TypeInLogFile($"Я люблю Машу №{i.ToString()}!", LogStatus.Warning);
+                qwe.TypeInLogFile($"This is some text #{i.ToString()}!", LogStatus.ERROR);
             }
         }
     }

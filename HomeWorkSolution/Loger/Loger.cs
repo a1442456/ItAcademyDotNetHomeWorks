@@ -9,9 +9,10 @@ using System.Configuration;
 
 namespace Loger
 {
-    class Loger
+    public class Loger
     {
         const long MaxFileSize = 30000;
+        const char indexDevider = '-';
         string _filePath;
         string _fileMask;
 
@@ -33,11 +34,11 @@ namespace Loger
             if (IsNeedCreateNewFile())
                 CreateLogFile();
             string[] fileNames = Directory.GetFiles(_filePath, $"{_fileMask}*");
-            string lastFile = fileNames[fileNames.Length - 1];
+            string lastFile = $"{_filePath}{_fileMask}{indexDevider}{GetLastIndexFile()}.log";
             using (System.IO.StreamWriter sw = File.AppendText(lastFile))
             {
                 DateTime date = DateTime.Now;
-                sw.WriteLine($"{date.TimeOfDay.ToString()} {status} {text}");
+                sw.WriteLine($"{date.TimeOfDay.ToString()}--{status} {text}");
             }
         }
 
@@ -72,23 +73,44 @@ namespace Loger
             DateTime date = DateTime.Now;
             string fileName = $"{_filePath}{_fileMask}";
             fileName = fileName.Replace(".", "");
-            fileName = $"{fileName}-{fileIndex}.log";
+            fileName = $"{fileName}{indexDevider}{fileIndex}.log";
             var myFile = File.Create(fileName);
             myFile.Close();
         }
 
         private int GetLastIndexFile()
         {
-            int lastIndex;
+            int lastIndex = 0;
+            int logIndex = 0;
             string[] fileNames = Directory.GetFiles(_filePath, $"{_fileMask}*");
-            
-            if (fileNames.Length > 0)
+
+            for (int fileNameIndex = 0; fileNameIndex < fileNames.Length; fileNameIndex++)
             {
-                FileInfo fi = new FileInfo(fileNames[fileNames.Length - 1]);
-                lastIndex = int.Parse(fi.Name[fi.Name.Length - (fi.Extension.Length + 1)].ToString());
-                return lastIndex;
+                logIndex = GetLogIndexFromName(fileNames[fileNameIndex]);
+                if (lastIndex < logIndex)
+                    lastIndex = logIndex;
             }
-            return 0;
+
+            return lastIndex;
+        }
+
+        private int GetLogIndexFromName(string fileName)
+        {
+            string[] directories = fileName.Split('\\');
+            string file = directories[directories.Length - 1];
+            string indexStr = file.Substring(_fileMask.Length + 1);
+
+            string index = string.Empty;
+            for (int i = 0; i < indexStr.Length; i++)
+            {
+                if (indexStr[i] == '.')
+                {
+                    break;
+                }
+                index += indexStr[i];
+            }
+
+            return int.Parse(index);
         }
         
         private bool IsNeedCreateNewFile()
@@ -99,7 +121,8 @@ namespace Loger
            
             if (fileNames.Length > 0 )
             {
-                FileInfo fi = new FileInfo(fileNames[fileNames.Length - 1]);
+                string lastFile = $"{_filePath}{_fileMask}{indexDevider}{GetLastIndexFile()}.log";
+                FileInfo fi = new FileInfo(lastFile);//HERE!!!
                 long lastFileSize = fi.Length;
 
                 if (lastFileSize > MaxFileSize)
@@ -107,7 +130,6 @@ namespace Loger
             }
             else if(fileNames.Length <= 0)
                 isNeed = true;
-
             return isNeed;
         }
 
@@ -117,10 +139,10 @@ namespace Loger
         }
     }
 
-    internal enum LogStatus
+    public enum LogStatus
     {
-        Error,
-        Warning,
-        Info
+        ERROR,
+        WARNING,
+        INFO
     }
 }
