@@ -9,14 +9,14 @@ using System.Configuration;
 
 namespace Loger
 {
-    public class Loger
+    public class LogWorker
     {
         const long MaxFileSize = 30000;
         const char indexDevider = '-';
         string _filePath;
         string _fileMask;
 
-        public Loger()
+        public LogWorker()
         {   
                 DateTime date = DateTime.Now;
                 _fileMask = $"{date.Year}{date.Month}{date.Day}";
@@ -29,6 +29,19 @@ namespace Loger
                     CreateLogFile();
         }
 
+        public void TypeInLogFile(string text)
+        {
+            if (IsNeedCreateNewFile())
+                CreateLogFile();
+            string[] fileNames = Directory.GetFiles(_filePath, $"{_fileMask}*");
+            string lastFile = $"{_filePath}{_fileMask}{indexDevider}{GetLastIndexFile()}.log";
+            using (System.IO.StreamWriter sw = File.AppendText(lastFile))
+            {
+                DateTime date = DateTime.Now;
+                sw.WriteLine($"{date.TimeOfDay.ToString()} {LogStatus.INFO}: {text}");
+            }
+        }
+
         public void TypeInLogFile(string text, LogStatus status)
         {   
             if (IsNeedCreateNewFile())
@@ -38,14 +51,14 @@ namespace Loger
             using (System.IO.StreamWriter sw = File.AppendText(lastFile))
             {
                 DateTime date = DateTime.Now;
-                sw.WriteLine($"{date.TimeOfDay.ToString()}--{status} {text}");
+                sw.WriteLine($"{date.TimeOfDay.ToString()} {status}: {text}");
             }
         }
 
         /// <summary>
         /// Check is path correct
         /// </summary>
-        /// <param name="filePath">Example: C:\Test\LogDirecotry\</param>
+        /// <param name="filePath">Example: C:\Test\LogDirecotry\qwe.log</param>
         /// <returns></returns>
         private bool IsPathCorrect(string filePath)
         {
@@ -90,7 +103,6 @@ namespace Loger
                 if (lastIndex < logIndex)
                     lastIndex = logIndex;
             }
-
             return lastIndex;
         }
 
@@ -109,10 +121,9 @@ namespace Loger
                 }
                 index += indexStr[i];
             }
-
             return int.Parse(index);
         }
-        
+
         private bool IsNeedCreateNewFile()
         {
             bool isNeed = false;
@@ -132,13 +143,7 @@ namespace Loger
                 isNeed = true;
             return isNeed;
         }
-
-        public string Path
-        {
-            get { return _filePath; }
-        }
     }
-
     public enum LogStatus
     {
         ERROR,
